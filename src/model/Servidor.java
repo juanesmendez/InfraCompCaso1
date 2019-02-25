@@ -12,12 +12,19 @@ public class Servidor extends Thread{
 	*/
 	private Buffer buff;
 
+	/**
+	*Identificador del servidor
+	*/
+
+	private int id;
+
 
 	/**
 	* Método constructor de la clase
 	*/
-	public Servidor(Buffer pBuff){
+	public Servidor(Buffer pBuff, int pId){
 		this.buff = pBuff;
+		this.id = pId;
 	}
 
 	public void recibirMensaje(){
@@ -33,6 +40,10 @@ public class Servidor extends Thread{
 
 		//TODO: Despierta el wait() del cliente que espera una respuesta a su mensaje, hay que añadir synchronized?
 		mensaje.notify();
+	}
+
+	public int getId(){
+		return id;
 	}
 
 

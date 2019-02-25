@@ -19,15 +19,6 @@ public class Cliente extends Thread{
         }
     }
 
-    @Override
-    public void run() {
-        for(Mensaje m:mensajes){
-            enviarMensaje(m); // cliente envia todos los mensajes al buffer
-        }
-        buffer.reducirNumClientes();
-
-    }
-
     public void enviarMensaje(Mensaje m){
     	    //TODO: Revisar espera pasiva, notify while 
             while (buffer.getCapacidad() == 0){
@@ -54,4 +45,16 @@ public class Cliente extends Thread{
     public int getId(){
     	return id;
     }
+
+
+    @Override
+    public void run() {
+        for(Mensaje m:mensajes){
+            enviarMensaje(m); // cliente envia todos los mensajes al buffer
+        }
+        buffer.reducirNumClientes();
+
+    }
+
+
 }

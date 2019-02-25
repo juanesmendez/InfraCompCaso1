@@ -68,10 +68,12 @@ public class Buffer {
 
     	//Inicializar los servidores
     	for(int i = 0; i < numServ; i++){
-    		Servidor serv = new Servidor(buffer);
+    		Servidor serv = new Servidor(buffer, i);
+    		System.out.println("Se creo el servidor: " + serv.getId());
     		serv.start();
     	}
 
+    	//TODO: Como manejar el main como thread (se puede usar un while mientrashayan clientes ni mensajes)?
 
     }
 
