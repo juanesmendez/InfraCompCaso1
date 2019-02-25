@@ -13,13 +13,17 @@ public class Cliente extends Thread{
         this.numMensajes = numMensajes;
         this.buffer = buffer;
         mensajes = new ArrayList<>();
-    }
-
-    @Override
-    public void run() {
         for(int i = 0; i < numMensajes; i++){
             int contenido = (int) Math.round(Math.random()*1000);
             mensajes.add(new Mensaje(id,contenido));
         }
+    }
+
+    @Override
+    public void run() {
+        for(Mensaje m:mensajes){
+            buffer.enviarMensaje(m); // cliente envia todos los mensajes al buffer
+        }
+
     }
 }
