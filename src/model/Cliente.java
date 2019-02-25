@@ -24,6 +24,7 @@ public class Cliente extends Thread{
         for(Mensaje m:mensajes){
             enviarMensaje(m); // cliente envia todos los mensajes al buffer
         }
+        buffer.reducirNumClientes();
 
     }
 

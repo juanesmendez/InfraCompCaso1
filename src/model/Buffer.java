@@ -8,8 +8,9 @@ public class Buffer {
     private int numClientes;
     private Queue<Mensaje> buff;
 
-    public Buffer(int capacidad){
+    public Buffer(int capacidad, int numClientes){
         this.capacidad = capacidad;
+        this.numClientes = numClientes;
         this.buff = new LinkedList<>();
 
     }
@@ -40,6 +41,10 @@ public class Buffer {
 
     public int getNumMensajes(){
     	return buff.size();
+    }
+
+    public void reducirNumClientes(){
+        numClientes--;
     }
 
     public static void main(String[] args){
