@@ -22,8 +22,32 @@ public class Cliente extends Thread{
     @Override
     public void run() {
         for(Mensaje m:mensajes){
-            buffer.enviarMensaje(m); // cliente envia todos los mensajes al buffer
+            enviarMensaje(m); // cliente envia todos los mensajes al buffer
         }
 
+    }
+
+    public void enviarMensaje(Mensaje m){
+
+            while (buffer.getCapacidad() == 0){
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            buffer.enviarMensaje(m);
+
+
+
+            synchronized (m){
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            
     }
 }

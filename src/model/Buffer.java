@@ -30,6 +30,10 @@ public class Buffer {
 
     }
 
+    public int getCapacidad() {
+        return capacidad;
+    }
+
     public static void main(String[] args){
 
     }
