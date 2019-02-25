@@ -28,7 +28,7 @@ public class Cliente extends Thread{
     }
 
     public void enviarMensaje(Mensaje m){
-
+    	    //TODO: Revisar espera pasiva, notify while 
             while (buffer.getCapacidad() == 0){
                 try {
                     wait();
@@ -37,10 +37,10 @@ public class Cliente extends Thread{
                 }
             }
 
+            //TODO: Sincronizacion de este metodo en la clase buffer o aca
             buffer.enviarMensaje(m);
 
-
-
+            //TODO: asi se sincroniza el mensaje?
             synchronized (m){
                 try {
                     wait();

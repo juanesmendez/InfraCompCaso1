@@ -20,4 +20,12 @@ public class Mensaje {
         this.contenido = contenido;
     }
 
+    public void responder(){
+    	contenido++;
+    }
+
+   public int getContenido(){
+   	return contenido;
+   }
+
 }
