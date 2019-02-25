@@ -22,6 +22,19 @@ public class Servidor extends Thread{
 		this.buff = pBuff;
 	}
 
+	public void recibirMensaje(){
+		//Hay mensajes
+		while(buff.getNumMensajes == 0 && buff.getNumClientes() > 0){
+			Thread.yield();
+		}
+
+		buff.recibirMensaje();
+
+		
+
+
+	}
+
 
 
 
