@@ -29,9 +29,9 @@ public class Servidor extends Thread{
 		}
 
 		Mensaje mess = buff.recibirMensaje();
-		System.out.println("El servidor esta procesando el mensaje: "+ mensaje.getMensaje());
+		System.out.println("El servidor esta procesando el mensaje: "+ mensaje.getContenido());
 		mess.responder();
-		System.out.println("La respuesta del servidor fue: "+ mensaje.getMensaje());
+		System.out.println("La respuesta del servidor fue: "+ mensaje.getContenido());
 
 		//TODO: Despierta el wait() del cliente que espera una respuesta a su mensaje, hay que añadir synchronized?
 		mess.notify();

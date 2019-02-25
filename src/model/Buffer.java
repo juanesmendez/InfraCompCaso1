@@ -22,7 +22,7 @@ public class Buffer {
 
     }
 
-    public synchronized void recibirMensaje(Mensaje pMensaje){
+    public synchronized void recibirMensaje(){
     	//El primer mensaje en ingresar a la lista es el primero en salir
     	buff.poll();
     	//Se aumenta el espacio disponible en el buffer
