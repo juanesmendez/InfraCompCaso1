@@ -24,7 +24,7 @@ public class Servidor extends Thread{
 
 	public void recibirMensaje(){
 		//Hay mensajes
-		while(buff.getNumMensajes == 0 && buff.getNumClientes() > 0){
+		while(buff.getNumMensajes() == 0 && buff.getNumClientes() > 0){
 			Thread.yield();
 		}
 
@@ -40,7 +40,7 @@ public class Servidor extends Thread{
 
 	public void run(){
 
-		if(buff.getNumClientes > 0){
+		if(buff.getNumClientes() > 0){
 			recibirMensaje();
 		}
 	}
