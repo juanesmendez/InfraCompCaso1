@@ -37,6 +37,7 @@ public class Cliente extends Thread{
                 }
             }
 
+        
             buffer.enviarMensaje(m);
 
 
@@ -48,6 +49,5 @@ public class Cliente extends Thread{
                     e.printStackTrace();
                 }
             }
-            
     }
 }
