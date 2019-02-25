@@ -28,14 +28,21 @@ public class Servidor extends Thread{
 			Thread.yield();
 		}
 
-		buff.recibirMensaje();
+		Mensaje mess = buff.recibirMensaje();
+		System.out.println("El servidor esta procesando el mensaje: "+ mensaje.getMensaje());
+		mess.responder();
+		System.out.println("La respuesta del servidor fue: "+ mensaje.getMensaje());
 
-		
-
-
+		//TODO: Despierta el wait() del cliente que espera una respuesta a su mensaje, hay que añadir synchronized?
+		mess.notify();
 	}
 
 
+	public void run(){
 
+		if(buff.getNumClientes > 0){
+			recibirMensaje();
+		}
+	}
 
 }
