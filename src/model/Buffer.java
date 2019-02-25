@@ -31,8 +31,12 @@ public class Buffer {
     }
 
     public static void main(String[] args){
+<<<<<<< HEAD
 
 
+=======
+        
+>>>>>>> de4614b6ad78a455f6347b12b5fb55188a21b472
     }
 
 
