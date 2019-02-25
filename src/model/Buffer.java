@@ -49,6 +49,30 @@ public class Buffer {
 
     public static void main(String[] args){
 
+    	BufferedReader br = new BufferedReader(new FileReader("data/config.txt"));
+
+    	String[] data = br.readLine().split(" ");
+    	int tamBuff = Integer.parseInt(data[0]);
+    	int numCli = Integer.parseInt(data[1]);
+    	int numServ = Integer.parseInt(data[2]);
+
+    	Buffer buffer = new Buffer(tamBuff,  numCli);
+    	System.out.println("La capacidad del buffer es: " + tamBuff);
+    	//Inicializar los clientes
+    	for(int i = 0; i < numCli; i++){
+    		int numMens = Integer.parseInt(br.readLine());
+    		Cliente cli = new Cliente(i, numMens, buffer);
+    		System.out.println("Se creo el cliente: " + cli.getId() + " con un numero de mensajes: " + numMens);
+    		cli.start();
+    	}
+
+    	//Inicializar los servidores
+    	for(int i = 0; i < numServ; i++){
+    		Servidor serv = new Servidor(buffer);
+    		serv.start();
+    	}
+
+
     }
 
 

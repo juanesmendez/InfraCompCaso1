@@ -50,4 +50,8 @@ public class Cliente extends Thread{
                 }
             }
     }
+
+    public int getId(){
+    	return id;
+    }
 }
