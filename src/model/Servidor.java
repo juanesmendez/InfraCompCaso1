@@ -16,9 +16,7 @@ public class Servidor extends Thread{
 	/**
 	* Método constructor de la clase
 	*/
-	public Servidor(Mensaje pMensaje, Buffer pBuff){
-
-		this.mensaje = pMensaje;
+	public Servidor(Buffer pBuff){
 		this.buff = pBuff;
 	}
 
@@ -28,13 +26,13 @@ public class Servidor extends Thread{
 			Thread.yield();
 		}
 
-		Mensaje mess = buff.recibirMensaje();
+		mensaje = buff.recibirMensaje();
 		System.out.println("El servidor esta procesando el mensaje: "+ mensaje.getContenido());
-		mess.responder();
+		mensaje.responder();
 		System.out.println("La respuesta del servidor fue: "+ mensaje.getContenido());
 
 		//TODO: Despierta el wait() del cliente que espera una respuesta a su mensaje, hay que añadir synchronized?
-		mess.notify();
+		mensaje.notify();
 	}
 
 
