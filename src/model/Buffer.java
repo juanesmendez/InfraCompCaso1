@@ -10,7 +10,7 @@ public class Buffer {
 
     public Buffer(int capacidad){
         this.capacidad = capacidad;
-        this.buff = new Queue<>();
+        this.buff = new LinkedList<>();
 
     }
 
@@ -31,7 +31,7 @@ public class Buffer {
     }
 
     public static void main(String[] args){
-
+        
     }
 
 
