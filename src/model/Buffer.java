@@ -1,23 +1,32 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Buffer {
 
     private int capacidad;
-    private ArrayList<Mensaje> buff;
+    private int numClientes;
+    private Queue<Mensaje> buff;
 
     public Buffer(int capacidad){
         this.capacidad = capacidad;
-        this.buff = new ArrayList<>();
+        this.buff = new Queue<>();
 
     }
 
-    public void enviarMensaje(){
+    public synchronized void enviarMensaje(Mensaje pMensaje){
+    	//Agrega a la lista el mensaje que el cliente mando
+    	buff.add(pMensaje);
+    	//Se reduce el espacio disponible en el buffer
+    	capacidad--;
 
     }
 
-    public void recibirMensaje(){
+    public synchronized void recibirMensaje(){
+    	//El primer mensaje en ingresar a la lista es el primero en salir
+    	buff.poll();
+    	//Se aumenta el espacio disponible en el buffer
+    	capacidad++;
 
     }
 
