@@ -1,17 +1,20 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class Buffer {
 
     private int capacidad;
     private int numClientes;
-    private Queue<Mensaje> buff;
+    private ArrayList<Mensaje> buff;
 
     public Buffer(int capacidad, int numClientes){
         this.capacidad = capacidad;
         this.numClientes = numClientes;
-        this.buff = new LinkedList<>();
+        this.buff = new ArrayList<>();
 
     }
 
@@ -25,7 +28,8 @@ public class Buffer {
 
     public synchronized Mensaje recibirMensaje(){
     	//El primer mensaje en ingresar a la lista es el primero en salir
-    	Mensaje mess = buff.poll();
+    	Mensaje mess = buff.remove(0);
+    	System.out.println("El mensaje " + mess.getContenido() + " fue retirado del buffer.");
     	//Se aumenta el espacio disponible en el buffer
     	capacidad++;
         return mess;
@@ -47,7 +51,7 @@ public class Buffer {
         numClientes--;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
 
     	BufferedReader br = new BufferedReader(new FileReader("data/config.txt"));
 
@@ -57,23 +61,27 @@ public class Buffer {
     	int numServ = Integer.parseInt(data[2]);
 
     	Buffer buffer = new Buffer(tamBuff,  numCli);
-    	System.out.println("La capacidad del buffer es: " + tamBuff);
+
     	//Inicializar los clientes
     	for(int i = 0; i < numCli; i++){
     		int numMens = Integer.parseInt(br.readLine());
     		Cliente cli = new Cliente(i, numMens, buffer);
-    		System.out.println("Se creo el cliente: " + cli.getId() + " con un numero de mensajes: " + numMens);
+    		System.out.println("Se creo el cliente: " + cli.getIdentificador() + " con un numero de mensajes: " + numMens);
     		cli.start();
+            System.out.println("La capacidad del buffer es: " + buffer.getCapacidad());
     	}
 
     	//Inicializar los servidores
     	for(int i = 0; i < numServ; i++){
     		Servidor serv = new Servidor(buffer, i);
-    		System.out.println("Se creo el servidor: " + serv.getId());
+    		System.out.println("Se creo el servidor: " + serv.getIdentificador());
     		serv.start();
     	}
 
     	//TODO: Como manejar el main como thread (se puede usar un while mientrashayan clientes ni mensajes)?
+        while (numCli != 0 && buffer.getCapacidad() != 0){
+
+        }
 
     }
 
