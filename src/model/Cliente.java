@@ -20,30 +20,8 @@ public class Cliente extends Thread{
     }
 
     public void enviarMensaje(Mensaje m){
-    	    //TODO: Revisar espera pasiva, notify while 
-            while (buffer.getCapacidad() == 0){
-                System.out.println("El buffer esta ocupado, el cliente con id " + id + " esta esperando");
-                //yield();
-
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        
+    	    //TODO: Revisar espera pasiva, notify while
             buffer.enviarMensaje(m);
-
-            //TODO: asi se sincroniza el mensaje?
-            synchronized (m){
-                try {
-                    System.out.println("El cliente con id " + id + " esta esperando la respuesta del servidor.");
-                    m.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
     }
 
     public int getIdentificador(){

@@ -28,4 +28,8 @@ public class Mensaje {
    	return contenido;
    }
 
+   public int getIdCliente(){
+        return idCliente;
+   }
+
 }
