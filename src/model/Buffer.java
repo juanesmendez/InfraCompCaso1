@@ -39,7 +39,7 @@ public class Buffer {
     }
 
     /**
-     * Pone un mensaje en el buffer y se reduce su capacidad. El emnsaje queda esperando la respuesta del servidor
+     * Pone un mensaje en el buffer y se reduce su capacidad. El mensaje queda esperando la respuesta del servidor
      * @param pMensaje El mensaje a poner en el buffer
      */
     public void enviarMensaje(Mensaje pMensaje){
@@ -60,7 +60,7 @@ public class Buffer {
         }
         //Se reduce el espacio disponible en el buffer
         reducirCapacidad();
-        //TODO: asi se sincroniza el mensaje?
+
         synchronized (pMensaje){
             try {
                 System.out.println("El cliente con id " + pMensaje.getIdCliente() + " esta esperando la respuesta del servidor.");
@@ -89,7 +89,6 @@ public class Buffer {
             System.out.println("Despierto a los clientes que estan dormidos.");
             lleno.notifyAll();
         }
-        //TODO: Despierta el wait() del cliente que espera una respuesta a su mensaje, hay que añadir synchronized?
         synchronized (mess){
             try{
                 System.out.println("El servidor esta procesando el mensaje del cliente " + mess.getIdCliente() + " con contenido: "+ mess.getContenido());

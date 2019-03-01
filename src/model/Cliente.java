@@ -45,7 +45,7 @@ public class Cliente extends Thread{
      * @param m
      */
     public void enviarMensaje(Mensaje m){
-    	    //TODO: Revisar espera pasiva, notify while
+    	    
             buffer.enviarMensaje(m);
     }
 
