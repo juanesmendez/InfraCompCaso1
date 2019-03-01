@@ -2,6 +2,9 @@ package model;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Clase que representa un Servidor que responde mensajes de diferentes clientes, retirandolos de un buffer
+ */
 public class Servidor extends Thread{
 
 	/**
@@ -29,6 +32,9 @@ public class Servidor extends Thread{
 		this.mensaje = null;
 	}
 
+	/**
+	 * Llama al buffer para retirar un mensaje puesto previamente por un cliente.
+	 */
 	public void recibirMensaje(){
 		//mientras no haya mensajes ceder el procesador (yield)
 		while(buff.getNumMensajes() == 0 ){
@@ -46,6 +52,10 @@ public class Servidor extends Thread{
 		return id;
 	}
 
+	/**
+	 * Metodo run, que se ejecutará apenas se llame al metodo start del thread. Loop que hace que el Servidor siempre
+	 * este a la espera de mensajes por retirar hasta que ya no haya más clientes solicitando una respuesta.
+	 */
 	public void run() {
 		// chequer información de numero de cientes para acabar
 		while(buff.getNumClientes() > 0){

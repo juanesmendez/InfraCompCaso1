@@ -2,12 +2,33 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * Clase que representa un cliente que envia mensajes a un servidor mediante un bbuffer y respera una respuesta del mismo
+ */
 public class Cliente extends Thread{
+    /**
+     * El identificador del cliente
+     */
     private int id;
+    /**
+     * EL numero de mensajes que enviará el cliente a los servidores para esperar una respuesta
+     */
     private int numMensajes;
+    /**
+     * El arreglo de mensajes a poner en el buffer
+     */
     private ArrayList<Mensaje> mensajes;
+    /**
+     * Referencia al buffer que contiene todos los mensajes de los clientes
+     */
     private Buffer buffer;
 
+    /**
+     * Método constructor de la clase
+     * @param id el identificador del cliente
+     * @param numMensajes
+     * @param buffer
+     */
     public Cliente(int id, int numMensajes, Buffer buffer){
         this.id = id;
         this.numMensajes = numMensajes;
@@ -19,6 +40,10 @@ public class Cliente extends Thread{
         }
     }
 
+    /**
+     * Envia un mensaje al buffer que será retirado por un Servidor
+     * @param m
+     */
     public void enviarMensaje(Mensaje m){
     	    //TODO: Revisar espera pasiva, notify while
             buffer.enviarMensaje(m);
@@ -28,14 +53,16 @@ public class Cliente extends Thread{
     	return id;
     }
 
-
+    /**
+     * Método run del thread que se ejecutará cuando se llame al metodo start(). Recorre los mensajes del cliente y los envia.
+     */
     @Override
     public void run() {
+        // recorrido de los mensajes del cliente para ponerlos en el buffer
         for(Mensaje m:mensajes){
             enviarMensaje(m); // cliente envia todos los mensajes al buffer
         }
         buffer.reducirNumClientes();
-
     }
 
 

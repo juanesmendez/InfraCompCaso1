@@ -5,23 +5,43 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Clase que representa un buffer con capacidad limitada donde se almacenaran mensajes que envia un Cliente y que recibe un Servidor
+ */
 public class Buffer {
-
+    /**
+     * Capacidad del buffer, la cual va a ir cambiando
+     */
     private int capacidad;
+    /**
+     * Numero total de clientes que envian mensajes al buffer
+     */
     private int numClientes;
+    /**
+     * El arreglo flexible que contiene los mensajes
+     */
     private ArrayList<Mensaje> buff;
-    Object vacio;
+    /**
+     * Bolsa que se utiliza para guardar hilos
+     */
     Object lleno;
 
+    /**
+     * Constructor de la clase Buffer
+     * @param capacidad El espacio disponible del buffer en un momento dado
+     * @param numClientes El numero total de clientes que enviarán mensajes al buffer
+     */
     public Buffer(int capacidad, int numClientes){
         this.capacidad = capacidad;
         this.numClientes = numClientes;
         this.buff = new ArrayList<>();
-
-        vacio = new Object();
         lleno = new Object();
     }
 
+    /**
+     * Pone un mensaje en el buffer y se reduce su capacidad. El emnsaje queda esperando la respuesta del servidor
+     * @param pMensaje El mensaje a poner en el buffer
+     */
     public void enviarMensaje(Mensaje pMensaje){
         // si el buffer no tiene capacidad
         synchronized (lleno){ // sincronizo el objeto que tendrá la bolsa de clientes que estan esperando para enviar un mensaje
@@ -51,6 +71,10 @@ public class Buffer {
         }
     }
 
+    /**
+     * Saca un mensaje del buffer. Se le notifica al cliente que esta esperando una respuesta por parte del servidor.
+     * @return Retorna el mensaje
+     */
     public Mensaje recibirMensaje(){
         Mensaje mess;
         //El primer mensaje en ingresar a la lista es el primero en salir
@@ -110,10 +134,6 @@ public class Buffer {
         return lleno;
     }
 
-    public Object getBolsaVacio(){
-        return vacio;
-    }
-
     public static void main(String[] args) throws IOException {
         Cliente[] clientes;
         Servidor[] servidores;
@@ -160,8 +180,7 @@ public class Buffer {
             }*/
             servidores[i].start();
         }
-
-        // sincronizo para que todos oos threads se encuentren despues de los sigueintes dos ciclos
+        // sincronizo para que todos los threads se encuentren despues de los sigueintes dos ciclos
         for(int i = 0; i < clientes.length; i++){
             try {
                 clientes[i].join();
@@ -173,7 +192,6 @@ public class Buffer {
         System.out.println("ACABARON LOS CLIENTES");
         System.out.println("Numero de clientes: " + buffer.getNumClientes());
 
-
         for(int i = 0; i < servidores.length; i++){
             try {
                 servidores[i].join();
@@ -183,13 +201,6 @@ public class Buffer {
         }
         System.out.println("ACABARON LOS SERVIDORES");
         System.out.println("Todos los threads terminaron su ejecución.");
-    	/*
-    	//TODO: Como manejar el main como thread (se puede usar un while mientrashayan clientes ni mensajes)?
-        while (numCli != 0 && buffer.getCapacidad() != 0){
-
-        }*/
-
     }
-
 
 }
