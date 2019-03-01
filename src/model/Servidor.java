@@ -30,21 +30,16 @@ public class Servidor extends Thread{
 	}
 
 	public void recibirMensaje(){
-
-		// chequer información de numero de cientes para acabar
-		outerLoop:
-		while(buff.getNumClientes() > 0){
-			//mientras no haya mensajes
-			while(buff.getNumMensajes() == 0 ){ // revisar este loop
-				if(buff.getNumClientes() == 0){ // caso de salida para que el servidor no se quede en el loop infititamente cuando quedaba 1 cliente y otro servidor se le adelanta y le quita el ultimo mensaje que queda por atender.
-					break outerLoop; // label para que se salga de ambas loops y que el thread acabe su ejecución
-				}
-				yield();
+		//mientras no haya mensajes ceder el procesador (yield)
+		while(buff.getNumMensajes() == 0 ){
+			// caso de salida para que el servidor no se quede en el loop infititamente cuando queda 1 cliente
+			// y otro servidor se le adelanta y le quita el ultimo mensaje que queda por atender.
+			if(buff.getNumClientes() == 0){
+				return;
 			}
-
-			mensaje = buff.recibirMensaje();
+			yield();
 		}
-
+		mensaje = buff.recibirMensaje();
 	}
 
 	public int getIdentificador(){
@@ -52,11 +47,9 @@ public class Servidor extends Thread{
 	}
 
 	public void run() {
-	/*
-		if(buff.getNumClientes() > 0){
+		// chequer información de numero de cientes para acabar
+		while(buff.getNumClientes() > 0){
 			recibirMensaje();
 		}
-	*/
-		recibirMensaje();
 	}
 }
